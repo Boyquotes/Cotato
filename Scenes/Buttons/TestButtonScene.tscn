@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Buttons/TestButtonScene.gd" type="Script" id=1]
+
+[node name="Button" type="Button"]
+margin_left = 785.0
+margin_top = 415.0
+margin_right = 935.0
+margin_bottom = 465.0
+rect_min_size = Vector2( 150, 50 )
+size_flags_horizontal = 4
+text = "Test"
+script = ExtResource( 1 )
