@@ -16,4 +16,4 @@ margin_bottom = 980.0
 alignment = 1
 
 [node name="Button" parent="Buttons" instance=ExtResource( 1 )]
-scene_to_open = "res://Scenes/TileMap.tscn"
+scene_to_open = "res://Scenes/Game.tscn"

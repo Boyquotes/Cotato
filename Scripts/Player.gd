@@ -1,10 +1,4 @@
-extends KinematicBody2D
-
-export var speed = 100
-var screen_size
-
-func _ready():
-	screen_size = get_viewport_rect().size
+extends "res://Scripts/Entity.gd"
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
@@ -30,5 +24,5 @@ func _process(delta):
 		$AnimatedSprite.animation = "idle"
 		
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	position.x = clamp(position.x, 0, 10000)
+	position.y = clamp(position.y, 0, 10000)
