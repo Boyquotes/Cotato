@@ -1,13 +1,10 @@
 extends KinematicBody2D
 
-var speed = 200
+export var speed = 100
 var screen_size
-
-const bulletPath = preload("res://test/Bullet.tscn")
 
 func _ready():
 	screen_size = get_viewport_rect().size
-	
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
@@ -22,20 +19,16 @@ func _process(delta):
 		
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-
+		$AnimatedSprite.play()
+		
+	if velocity.x != 0 || velocity.y != 0:
+		$AnimatedSprite.animation = "run"
+		$AnimatedSprite.flip_v = false
+		# See the note below about boolean assignment.
+		$AnimatedSprite.flip_h = velocity.x < 0
+	elif velocity.x == 0:
+		$AnimatedSprite.animation = "idle"
+		
 	position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
-		
-	if Input.is_action_just_pressed("shoot"):
-		shoot()
-	
-	$Node2D.look_at(get_global_mouse_position())
-
-func shoot():
-	var bullet = bulletPath.instance()
-	
-	get_parent().add_child(bullet)
-	bullet.position = $Node2D/Position2D.global_position
-	
-	bullet.velocity = get_global_mouse_position() - bullet.position
