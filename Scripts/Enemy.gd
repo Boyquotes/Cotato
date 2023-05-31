@@ -1,7 +1,6 @@
-extends "res://Scripts/Entity.gd"
+extends Area2D
 
-func _ready():
-	speed = 10
+var speed = 0.15
 
 func _physics_process(delta):
-	move_and_slide((get_parent().get_node("Player").position - position).normalized() * self.speed)
+	position += ((get_parent().get_node("Player").position - position).normalized() * self.speed)

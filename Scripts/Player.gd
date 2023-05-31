@@ -1,7 +1,6 @@
-extends "res://Scripts/Entity.gd"
+extends Area2D
 
-func _ready():
-	speed = 50
+var speed = 50
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
@@ -13,11 +12,11 @@ func _process(delta):
 		velocity.y += 1
 	if Input.is_action_pressed("move_up"):
 		velocity.y -= 1
-		
+	
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * self.speed
 		$AnimatedSprite.play()
-		
+	
 	if velocity.x != 0 || velocity.y != 0:
 		$AnimatedSprite.animation = "run"
 		$AnimatedSprite.flip_v = false
@@ -25,10 +24,7 @@ func _process(delta):
 		$AnimatedSprite.flip_h = velocity.x < 0
 	elif velocity.x == 0:
 		$AnimatedSprite.animation = "idle"
-		
+	
 	position += velocity * delta
 	position.x = clamp(position.x, 0, 10000)
 	position.y = clamp(position.y, 0, 10000)
-
-func _on_AutoShoot_timeout():
-	add_child(load("res://Scenes/Bullet_test.tscn").instance())
