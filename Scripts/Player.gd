@@ -1,6 +1,14 @@
 extends Area2D
 
-var speed = 50
+export var speed = 50
+export var hp = 100
+export var max_hp = 100
+export var regen = 1
+export var RegenTimer = 1
+
+func _ready():
+	$RegenTimer.set_wait_time(RegenTimer)
+	$RegenTimer.start()
 
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
@@ -28,3 +36,16 @@ func _process(delta):
 	position += velocity * delta
 	position.x = clamp(position.x, 0, 10000)
 	position.y = clamp(position.y, 0, 10000)
+
+func _on_Player_body_entered(body):
+	if hp == 0:
+			print("GG")
+	elif get_parent().get_node("Enemy"):
+		hp -= 1
+	$RegenTimer.start()
+
+func _on_RegenTimer_timeout():
+	if hp < max_hp:
+		hp += regen
+	else:
+		$RegenTimer.stop()
